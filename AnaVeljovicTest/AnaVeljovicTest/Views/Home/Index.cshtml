@@ -1,0 +1,175 @@
+﻿@section Scripts {
+    @Scripts.Render("~/Scripts/Skripta.js")
+
+}
+@* ++++++++++++++++++++++++++++++++++++PRIJAVA +++++++++++++++++++++++++++++++++*@
+
+<div class="row">
+    <p></p>
+    <p></p>
+    <p></p>
+    <p id="info" style="font-size:larger; color:black" align="center"></p>
+    <p id="sadrzaj"></p>
+</div>
+
+<div align="center">
+    <button class="btn btn-lg" id="pocetnoDugme" style="background-color: gold; text-decoration-color: black">Registracija i prijava</button>
+</div>
+<br />
+<br />
+
+<div id="pocetna" align="center">
+    <div class="col-sm-12" id="prijava">
+        <form method="post" action="post/">
+            <div class="form-group form-inline">
+                <label>Korisnicko ime:</label>
+                <input class="form-control" type="text" placeholder="Unesite svoju e-mail adresu" id="priEmail" />
+            </div>
+            <div class="form-group form-inline">
+                <label>Lozinka:</label>
+                <input class="form-control" type="password" placeholder="Unesite svoju lozinku" id="priLoz" />
+            </div>            
+            <div hidden>
+                <button type="submit" class="btn btn-md" id="skriveno"></button>
+            </div>
+        </form>
+        <div>            
+            <button type="submit" class="btn btn-lg" id="regDugme" style="background-color: gold; text-decoration-color: black">Registracija</button>&nbsp&nbsp
+            <button class="btn btn-lg btn-default" id="prijavaDugme">Prijava</button>
+        </div>
+    </div>
+</div>
+
+@* +++++++++++++++++++++++++++++++REGISTRACIJA++++++++++++++++++++++++++++++++++++++++++++*@
+
+<div style="display:none" class="col-xs-12" align="center" id="registracija">
+    <form method="post" action="post/">
+        <h3>Registracija</h3>
+        <div class="form-group form-inline form-horizontal">
+            <label>Email</label>
+            <input class="form-control" type="text" placeholder="Unesite svoju e-mail adresu" id="regEmail" autofocus />
+        </div>
+        <div class="form-group form-inline">
+            <label>Lozinka</label>
+            <input class="form-control form-inline form-horizontal" type="password" placeholder="Unesite lozinku" id="regLoz" />
+        </div>
+        <div class="form-group form-inline">
+            <label>Potvrdi Lozinku</label>
+            <input class="form-control" type="password" placeholder="Potvrdite unetu lozinku" id="regLoz2" />
+        </div>
+        <div class="form-group form-inline">
+            <button type="submit" class="btn btn-lg btn-default" style="background-color: gold; text-decoration-color: black"> &nbspRegistruj se</button>
+        </div>
+    </form>
+    <p id="info" style="color : lawngreen"></p>
+</div>
+
+@* +++++++++++++++++++++++++++++++++ ODJAVA ++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++*@
+
+<div style="display:none" class="row" id="odjava" align="center">
+    <button class="btn-lg" id="odjavise" style="background-color: gold; text-decoration-color: black">&nbspOdjava</button>
+</div>
+
+@* ++++++++++++++++++++++++++++++INICIJALNI PRIKAZ TABELE++++++++++++++++++++++++++++++++++++++++++++++++++++++*@
+<br />
+<br />
+<h1 align="center"> Nekretnine </h1><br />
+<div class="row">
+
+    @* +++++++++++++++++++++++PRETRAGA++++++++++++++++++++++++++++++++++++++++++++++++++++++*@
+    <div style="display:none; background-color:white" id="pretraga" class="col-sm-3 col-md-6 col-lg-4 bg-success">
+        <form class="row" id="btnSearch">
+            <h3 class="text-center">Pretraga po kvadraturi</h3>
+            <div>
+                <p><strong>Od: </strong></p><input class="form-control form-horizontal" type="number" id="donja" />
+            </div>
+            <div>
+                <p><strong>Do: </strong></p><input class="form-control form-horizontal" type="number" id="gornja" />
+            </div>
+            <br />
+            <div align="center">
+                <button type="submit" id="btnPretraga" class="btn-lg col-lg" style="background-color :white; text-decoration-color: black">Pretraga</button>
+            </div>
+        </form>
+    </div>
+@* ++++++++++++++++++++++++++++++INICIJALNI PRIKAZ TABELE++++++++++++++++++++++++++++++++++++++++++++++++++++++*@
+
+    <div id="table" align="center" class="col-sm-9 col-md-6 col-lg-8 bg-warning; text-justify">
+
+        <table class="table table-condensed table-responsive table-bordered table-hover">
+            <thead>
+                <tr class="text-dark" style="background-color: gold;">
+                    <th class="text-center">Mesto</th>
+                    <th class="text-center">Oznaka</th>
+                    <th class="text-center">Godina izgradnje</th>
+                    <th class="text-center">Kvadratura</th>
+                    <th class="text-center">Cena</th>
+                    <th class="text-center">Agent</th>
+                    <th class="text-center" id="kolDelete"><span class="glyphicon glyphicon-trash btn-md"></span>&nbsp  Delete</th>
+                    <th class="text-center" id="kolEdit"><span class="glyphicon glyphicon-edit btn-md"></span>&nbsp  Edit</th>
+                </tr>
+            </thead>
+            <tbody class="text-center" id="tablebody"></tbody>
+        </table>
+    </div>
+   
+</div>
+@* +++++++++++++++++++++++++++++++++++++++ IZMENA OBJEKTA +++++++++++++++++++++++++++++++++++++++++++*@
+<hr />
+<div class="row" align="center">
+    <br />
+    <button type="button" class="btn-lg col-lg" style="background-color :white; text-decoration-color: black" id="dodavanje">&nbsp Izmena nekretnina</button>
+    </div>
+<hr />
+
+<div class="row" align="center" id="addDiv">
+    <form method="post" action="post/" id="createEdit">
+        <div class="form-row form-inline">
+            <label id="objekatId" hidden></label>
+            <label style="text-align:left">Agent:</label>
+        </div>   <br />
+            <select id="selectedId" class="form-control dropdown-menu-right"></select>
+            <div class="form-row form-inline">
+                <label style="text-align:left">Agencijska oznaka: </label>
+                <input class="form-control" id="polje1" />
+            </div>   <br />
+        <div class="form-row form-inline">
+            <label style="text-align:left">Mesto: </label>
+            <input class="form-control" id="polje2" />           
+        </div>   <br />
+        <div class="form-row form-inline">
+            <label style="text-align:left">Godina zgradnje: </label>
+            <input class="form-control" id="polje3" />           
+        </div>   <br />
+        <div class="form-row form-inline">
+            <label style="text-align:left">Kvadratura: </label>
+            <input class="form-control" id="polje4" />            
+        </div> <br />
+        <div class="form-row form-inline">
+            <label style="text-align:left">Cena: </label>
+            <input class="form-control" id="polje5" />
+        </div> <br />
+        <div hidden>
+            <button type="submit" class="btn btn-md" id="skriveniSubmit">Sakriveni submit</button>
+        </div>
+    </form>
+    <p>
+        <button id="kreiraj" type="button" class="btn-lg" style="background-color: gold; text-decoration-color: black">Izmena
+        </button> &nbsp&nbsp&nbsp&nbsp
+        <button type="button" class="btn-lg col-lg" style="background-color :white; text-decoration-color: black" id="refreshbtn">
+            Odustajanje
+        </button>
+    </p>
+</div>
+<hr />
+<br />
+<br />
+<br />
+<br />
+<br />
+
+
+
+
+
+
